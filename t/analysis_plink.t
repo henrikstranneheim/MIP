@@ -63,7 +63,7 @@ diag(   q{Test analysis_plink from Plink.pm v}
       . $SPACE
       . $EXECUTABLE_NAME );
 
-my $log = test_log( { log_name => q{MIP}, no_screen => 1 } );
+my $log = test_log( { no_screen => 1 } );
 
 ## Given analysis parameters
 my $recipe_name    = q{plink};
@@ -80,6 +80,7 @@ $active_parameter{recipe_core_number}{$recipe_name} = 1;
 $active_parameter{recipe_time}{$recipe_name}        = 1;
 my $case_id = $active_parameter{case_id};
 $active_parameter{gender}{others} = [qw{ ADM1059A3 }];
+$active_parameter{exome_target_bed}{q{target_capture.bed}} = q{ADM1059A3};
 
 my %file_info = test_mip_hashes(
     {

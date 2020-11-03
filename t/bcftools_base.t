@@ -25,7 +25,7 @@ use MIP::Test::Commands qw{ test_function };
 use MIP::Test::Fixtures qw{ test_standard_cli };
 
 my $VERBOSE = 1;
-our $VERSION = 1.03;
+our $VERSION = 1.04;
 
 $VERBOSE = test_standard_cli(
     {
@@ -97,6 +97,10 @@ my %specific_argument = (
     output_type => {
         input           => q{b},
         expected_output => q{--output-type} . $SPACE . q{b},
+    },
+    regions_file_path => {
+        input           => catfile(qw{ a test.bed }),
+        expected_output => q{--regions-file} . $SPACE . catfile(qw{ a test.bed}),
     },
     regions_ref => {
         inputs_ref      => [qw{ 1 2 }],

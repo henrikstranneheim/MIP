@@ -44,16 +44,16 @@ BEGIN {
 ### Check all internal dependency modules and imports
 ## Modules with import
     my %perl_module = (
-        q{MIP::Get::File}      => [qw{ get_exom_target_bed_file }],
+        q{MIP::Get::File}      => [qw{ get_exome_target_bed_file }],
         q{MIP::Test::Fixtures} => [qw{ test_log test_standard_cli }],
     );
 
     test_import( { perl_module_href => \%perl_module, } );
 }
 
-use MIP::Get::File qw{ get_exom_target_bed_file };
+use MIP::Get::File qw{ get_exome_target_bed_file };
 
-diag(   q{Test get_exom_target_bed_file from File.pm v}
+diag(   q{Test get_exome_target_bed_file from File.pm v}
       . $MIP::Get::File::VERSION
       . $COMMA
       . $SPACE . q{Perl}
@@ -75,11 +75,10 @@ my %exome_target_bed = (
 );
 
 ## Given a sample_id
-my $exome_target_bed_file = get_exom_target_bed_file(
+my $exome_target_bed_file = get_exome_target_bed_file(
     {
         exome_target_bed_href => \%exome_target_bed,
         sample_id             => $sample_1,
-        log                   => $log,
     }
 );
 
@@ -88,11 +87,10 @@ is( q{exome_target_file.bed}, $exome_target_bed_file,
     q{Get exom target bed file for sample_1} );
 
 ## Given a sample id and a file ending
-$exome_target_bed_file = get_exom_target_bed_file(
+$exome_target_bed_file = get_exome_target_bed_file(
     {
         exome_target_bed_href => \%exome_target_bed,
         sample_id             => $sample_1,
-        log                   => $log,
         file_ending           => q{.interval_list},
     }
 );
@@ -102,11 +100,10 @@ is( q{exome_target_file.bed.interval_list},
     $exome_target_bed_file, q{Get exom target bed.interval_list file for sample_1} );
 
 ## Given another sample id
-$exome_target_bed_file = get_exom_target_bed_file(
+$exome_target_bed_file = get_exome_target_bed_file(
     {
         exome_target_bed_href => \%exome_target_bed,
         sample_id             => $sample_3,
-        log                   => $log,
     }
 );
 
@@ -116,11 +113,10 @@ is( q{exome_target_file_2.bed}, $exome_target_bed_file,
 
 ## Given a not exisitng sample id
 trap {
-    get_exom_target_bed_file(
+    get_exome_target_bed_file(
         {
             exome_target_bed_href => \%exome_target_bed,
             sample_id             => q{not_a_sample_id},
-            log                   => $log,
         }
     )
 };

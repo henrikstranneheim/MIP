@@ -25,24 +25,23 @@ BEGIN {
     use base qw{ Exporter };
 
     # Set the version for version checking
-    our $VERSION = 1.14;
+    our $VERSION = 1.15;
 
     # Functions and variables which can be optionally exported
     our @EXPORT_OK = qw{
-      get_exom_target_bed_file
+      get_exome_target_bed_file
       get_io_files
       get_merged_infile_prefix
       get_path_entries
     };
 }
 
-sub get_exom_target_bed_file {
+sub get_exome_target_bed_file {
 
 ## Function : Get exome_target_bed file for specfic sample_id and add file_ending from file_info hash if supplied
 ## Returns  : $exome_target_bed_file
 ## Arguments: $exome_target_bed_href => Exome target bed files lnked to sample ids
 ##          : $file_ending           => File ending to add to file
-##          : $log                   => Log object
 ##          : $sample_id             => Sample id
 
     my ($arg_href) = @_;
@@ -50,7 +49,6 @@ sub get_exom_target_bed_file {
     ## Flatten argument(s)
     my $exome_target_bed_href;
     my $file_ending;
-    my $log;
     my $sample_id;
 
     my $tmpl = {
@@ -62,12 +60,7 @@ sub get_exom_target_bed_file {
             store       => \$exome_target_bed_href,
         },
         file_ending => { store => \$file_ending },
-        log         => {
-            required => 1,
-            defined  => 1,
-            store    => \$log
-        },
-        sample_id => {
+        sample_id   => {
             required    => 1,
             defined     => 1,
             strict_type => 1,
@@ -76,6 +69,11 @@ sub get_exom_target_bed_file {
     };
 
     check( $tmpl, $arg_href, 1 ) or croak q{Could not parse arguments!};
+
+    ### PREPROCESSING:
+
+    ## Retrieve logger object
+    my $log = Log::Log4perl->get_logger($LOG_NAME);
 
     ## To track sample_ids with capture kits
     my %seen;
@@ -111,7 +109,7 @@ sub get_exom_target_bed_file {
     $log->fatal(
         q{Could not detect }
           . $sample_id
-          . q{ in '-exome_target_bed' associated files in sub routine get_exom_target_bed_file},
+          . q{ in '-exome_target_bed' associated files in sub routine get_exome_target_bed_file},
         $NEWLINE
     );
     exit 1;
@@ -506,7 +504,7 @@ sub _collect_outfile {
             strict_type => 1,
         },
         value => { defined => 1, required => 1, store => \$value, },
-        key => { defined => 1, store => \$key, required => 1, strict_type => 1, },
+        key   => { defined => 1, store => \$key, required => 1, strict_type => 1, },
     };
 
     check( $tmpl, $arg_href, 1 ) or croak q{Could not parse arguments!};

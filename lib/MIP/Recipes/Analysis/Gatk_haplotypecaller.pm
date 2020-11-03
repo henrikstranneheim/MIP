@@ -27,7 +27,7 @@ BEGIN {
     use base qw{ Exporter };
 
     # Set the version for version checking
-    our $VERSION = 1.26;
+    our $VERSION = 1.27;
 
     # Functions and variables which can be optionally exported
     our @EXPORT_OK =
@@ -515,7 +515,7 @@ sub analysis_gatk_haplotypecaller_panel {
     check( $tmpl, $arg_href, 1 ) or croak q{Could not parse arguments!};
 
     use MIP::Cluster qw{ update_memory_allocation };
-    use MIP::Get::File qw{ get_exom_target_bed_file get_io_files };
+    use MIP::Get::File qw{ get_exome_target_bed_file get_io_files };
     use MIP::Get::Parameter qw{ get_recipe_attributes get_recipe_resources };
     use MIP::Parse::File qw{ parse_io_outfiles };
     use MIP::Pedigree qw{ create_fam_file };
@@ -633,10 +633,9 @@ sub analysis_gatk_haplotypecaller_panel {
     );
 
     ## Get exome_target_bed file for specfic sample_id and add file_ending from file_info hash
-    my $exome_target_bed_file = get_exom_target_bed_file(
+    my $exome_target_bed_file = get_exome_target_bed_file(
         {
             exome_target_bed_href => $active_parameter_href->{exome_target_bed},
-            log                   => $log,
             sample_id             => $sample_id,
         }
     );
