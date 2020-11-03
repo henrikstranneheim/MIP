@@ -71,7 +71,7 @@ else
   conda create --name "$ENV_NAME" --yes  -c conda-forge libgcc-ng gxx_linux-64=7.3.0 python=3.7.7
 fi
 
-conda install --name "$ENV_NAME" --yes -c bioconda -c conda-forge perl=5.26 perl-app-cpanminus perl-log-log4perl perl-moosex-app perl-file-copy-recursive perl-timedate perl-set-intervaltree perl-params-validate
+conda install --name "$ENV_NAME" --yes -c bioconda -c conda-forge perl=5.26=h516909a_1006 perl-app-cpanminus perl-log-log4perl perl-moosex-app perl-file-copy-recursive perl-timedate perl-set-intervaltree perl-params-validate
 
 conda activate "$ENV_NAME"
 
