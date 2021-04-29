@@ -91,6 +91,16 @@ my @has_wes_contigs = delete_non_wes_contig(
 my @expected_wes_contigs = qw{ 1 2 3 4 MT };
 
 ## Then keep the non wes contigs
-is_deeply( \@has_wes_contigs, \@expected_wes_contigs, q{Keept non wes contigs} );
+is_deeply( \@has_wes_contigs, \@expected_wes_contigs, q{Keept non wes contigs for wgs} );
 
+## Given contigs, when a wts consensus type of run
+@has_wes_contigs = delete_non_wes_contig(
+    {
+        consensus_analysis_type => q{wts},
+        contigs_ref             => \@contigs,
+    }
+);
+
+## Then keep the non wes contigs
+is_deeply( \@has_wes_contigs, \@expected_wes_contigs, q{Keept non wes contigs for wts} );
 done_testing();

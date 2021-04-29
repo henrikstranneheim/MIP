@@ -201,7 +201,8 @@ sub delete_non_wes_contig {
     use MIP::List qw{ check_allowed_array_values };
     use MIP::Contigs qw{ delete_contig_elements };
 
-    return @{$contigs_ref} if ( $consensus_analysis_type eq q{wgs} );
+    return @{$contigs_ref}
+      if ( $consensus_analysis_type eq q{wgs} || $consensus_analysis_type eq q{wts} );
 
     ## Removes contig M | chrMT from contigs
     my @contigs = delete_contig_elements(
